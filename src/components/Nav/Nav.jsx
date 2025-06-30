@@ -67,7 +67,7 @@ const Nav = () => {
            {
             isAuthenticated ? 
               <>
-                <li><NavLink to='/profile'>{userLogin.result.username}</NavLink></li>
+                <li><NavLink to='/profile'>{userLogin?.result?.username || 'Profile'}</NavLink></li>
                 <li><NavLink to='/login' onClick={handleLogOut}>Logout</NavLink></li>
               </>
             :

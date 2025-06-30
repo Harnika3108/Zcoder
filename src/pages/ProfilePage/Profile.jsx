@@ -71,6 +71,10 @@ const Profile = () => {
 
   const handleAddTechStack = async () => {
     if (newTechStack === '') return;
+    if (techStacks.includes(newTechStack)) {
+    setMessage('Tech stack already exists');
+    return;
+  }
     try {
       const updatedStacks = [...techStacks, newTechStack];
       await axios.put(`http://localhost:8008/user/${userLogin.result._id}/techstacks`, { techStacks: updatedStacks });
@@ -124,7 +128,7 @@ const Profile = () => {
       const updatedFriends = friends.filter(friend => friend !== friendUsername);
       await axios.put(`http://localhost:8008/user/${userLogin.result._id}/friends`, { friends: updatedFriends });
       setFriends(updatedFriends);
-      alert('Friend deleted successfully')
+      setMessage('Friend deleted successfully')
       // setMessage('Friend deleted successfully');
     } catch (error) {
       setMessage('Error deleting friend');
@@ -154,9 +158,9 @@ const Profile = () => {
       // setMessage('Friend added successfully');
       setSearchUsername('');
       setSearchResult(null);
-      alert("Friend added successfully")
+      setMessage("Friend added successfully")
     } catch (error) {
-      alert('Error adding friend');
+      setMessage('Error adding friend');
     }
   };
 
@@ -190,7 +194,7 @@ const Profile = () => {
     try {
    // Replace with actual user ID
       await axios.post(`http://localhost:8008/user/${userLogin.result._id}/handles`, { handle } );
-      fetchHandles();
+      fetchHandles(userLogin.result._id);
       setHandle('');
       setMessage('Handle added successfully');
     } catch (error) {
@@ -201,7 +205,7 @@ const Profile = () => {
   const handleDeleteHandle = async (handleToDelete) => {
     try {
       await axios.delete(`http://localhost:8008/user/${userLogin.result._id}/handles/${handleToDelete}`);
-      fetchHandles();
+      fetchHandles(userLogin.result._id);
       setMessage('Handle deleted successfully');
     } catch (error) {
       setMessage('Error deleting handle from the database');
@@ -211,6 +215,7 @@ const Profile = () => {
   return (
     <>
     <h1 className={styles.title}>User Profile</h1>
+    {message && <p className={styles.message}>{message}</p>}
     <div className={styles.Appp}>
       
       {userLogin && (
