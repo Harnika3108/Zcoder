@@ -32,4 +32,10 @@ ZCoder is a dynamic coding platform designed to help developers practice coding 
 - *Open Integrated Terminal of Backend(cd Backend)*
 - npm i
 - npm start
+### Contributors
+- Dandamudi Harnika
+- Bharshita Deka
+- Anshika Raj Yadav
+
+
 
